@@ -30,7 +30,7 @@ class ApiService {
       url,
       headers: await _getHeaders(),
       body: jsonEncode(body),
-    ).timeout(const Duration(seconds: 15), onTimeout: () {
+    ).timeout(const Duration(seconds: 60), onTimeout: () {
       throw ApiException('Tiempo de espera agotado', 408);
     });
     return _handleResponse(response);
@@ -46,7 +46,7 @@ class ApiService {
       url,
       headers: await _getHeaders(auth: true),
       body: jsonEncode(body),
-    ).timeout(const Duration(seconds: 15), onTimeout: () {
+    ).timeout(const Duration(seconds: 60), onTimeout: () {
       throw ApiException('Tiempo de espera agotado', 408);
     });
     return _handleResponse(response);
@@ -58,7 +58,7 @@ class ApiService {
     final response = await http.get(
       url,
       headers: await _getHeaders(auth: true),
-    ).timeout(const Duration(seconds: 15), onTimeout: () {
+    ).timeout(const Duration(seconds: 60), onTimeout: () {
       throw ApiException('Tiempo de espera agotado', 408);
     });
     return _handleResponse(response);
@@ -74,7 +74,7 @@ class ApiService {
       url,
       headers: await _getHeaders(auth: true),
       body: jsonEncode(body),
-    ).timeout(const Duration(seconds: 15), onTimeout: () {
+    ).timeout(const Duration(seconds: 60), onTimeout: () {
       throw ApiException('Tiempo de espera agotado', 408);
     });
     return _handleResponse(response);
@@ -86,7 +86,7 @@ class ApiService {
     final response = await http.delete(
       url,
       headers: await _getHeaders(auth: true),
-    ).timeout(const Duration(seconds: 15), onTimeout: () {
+    ).timeout(const Duration(seconds: 60), onTimeout: () {
       throw ApiException('Tiempo de espera agotado', 408);
     });
     return _handleResponse(response);

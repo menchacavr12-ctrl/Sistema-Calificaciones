@@ -57,8 +57,9 @@ async def upload_profile_picture(file: UploadFile = File(...), current_user: dic
     with open(file_location, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 
-    # Note: In production, URL should not be hardcoded to localhost
-    image_url = f"http://localhost:8000/{file_location}"
+    # Note: Using dynamic base URL instead of hardcoded localhost
+    base_url = str(request.base_url)
+    image_url = f"{base_url}{file_location}"
     
     from datetime import datetime
     await db["users"].update_one(

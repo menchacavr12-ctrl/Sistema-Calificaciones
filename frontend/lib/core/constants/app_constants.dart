@@ -1,18 +1,7 @@
-import 'package:flutter/foundation.dart' show kIsWeb;
-import 'dart:io' show Platform;
-
 class AppConstants {
   // URL base del backend - se auto-detecta según la plataforma
   static String get baseUrl {
-    if (kIsWeb) {
-      return 'http://localhost:8000'; // Chrome/Web
-    }
-    try {
-      if (Platform.isAndroid) {
-        return 'http://10.0.2.2:8000'; // Android Emulator
-      }
-    } catch (_) {}
-    return 'http://localhost:8000'; // iOS / Desktop / Fallback
+    return "https://sistema-calificaciones-z8oy.onrender.com";
   }
 
   // Endpoints
