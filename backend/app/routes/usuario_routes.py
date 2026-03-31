@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, UploadFile, File, HTTPException
+from fastapi import APIRouter, Depends, UploadFile, File, HTTPException, Request
 from app.config.database import get_db
 from app.middlewares.auth_middleware import get_current_user
 from app.utils.helpers import serialize_doc, serialize_list
@@ -40,7 +40,7 @@ async def update_my_profile(data: dict, current_user: dict = Depends(get_current
 
 
 @router.post("/me/foto", summary="Subir foto de perfil")
-async def upload_profile_picture(file: UploadFile = File(...), current_user: dict = Depends(get_current_user)):
+async def upload_profile_picture(request: Request, file: UploadFile = File(...), current_user: dict = Depends(get_current_user)):
     db = get_db()
     valid_exts = [".jpg", ".jpeg", ".png", ".gif", ".webp"]
     is_valid_ext = any(file.filename.lower().endswith(ext) for ext in valid_exts)
