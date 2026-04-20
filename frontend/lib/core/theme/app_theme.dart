@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  // ── Paleta de colores (igual a los diseños) ──────────────────────────────
+
   static const Color primaryDark = Color(0xFF1A237E);    // Azul oscuro (header)
   static const Color primaryPurple = Color(0xFF4A148C);  // Morado (degradado)
   static const Color accentPurple = Color(0xFF7C3AED);   // Morado botones
@@ -18,7 +18,6 @@ class AppTheme {
   static const Color borderLight = Color(0xFFE5E7EB);
   static const Color backgroundLight = Color(0xFFF3F4F6);
 
-  // ── Roles de usuario (color en texto) ───────────────────────────────────
   static const Color colorAlumno = Color(0xFF22C55E);    // Verde
   static const Color colorMaestro = Color(0xFFEF4444);   // Rojo
   static const Color colorAdmin = Color(0xFFF59E0B);     // Amarillo
@@ -79,7 +78,6 @@ class AppTheme {
   }
 }
 
-// ── Degradado del header ───────────────────────────────────────────────────
 const LinearGradient headerGradient = LinearGradient(
   colors: [AppTheme.primaryDark, AppTheme.primaryPurple],
   begin: Alignment.centerLeft,

@@ -144,7 +144,7 @@ class _ClaseDetalleScreenState extends State<ClaseDetalleScreen> {
                     }
                     scaffoldMsg.showSnackBar(
                       const SnackBar(
-                        content: Text('✅ Calificación actualizada'),
+                        content: Text(' Calificación actualizada'),
                         backgroundColor: AppTheme.accentGreen,
                       ),
                     );
@@ -229,7 +229,7 @@ class _ClaseDetalleScreenState extends State<ClaseDetalleScreen> {
       backgroundColor: AppTheme.backgroundLight,
       body: Column(
         children: [
-          // ── Header con info de la clase ──────────────────────
+
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -281,7 +281,6 @@ class _ClaseDetalleScreenState extends State<ClaseDetalleScreen> {
             ),
           ),
 
-          // ── Selector de parcial ─────────────────────────────
           Container(
             color: Colors.white,
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
@@ -312,7 +311,6 @@ class _ClaseDetalleScreenState extends State<ClaseDetalleScreen> {
           ),
           const Divider(height: 1),
 
-          // ── Encabezado de tabla ──────────────────────────────
           Container(
             color: Colors.grey.shade100,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -342,7 +340,6 @@ class _ClaseDetalleScreenState extends State<ClaseDetalleScreen> {
             ),
           ),
 
-          // ── Lista de alumnos ────────────────────────────────
           Expanded(
             child: _isLoading
                 ? const Center(child: CircularProgressIndicator())
@@ -362,7 +359,6 @@ class _ClaseDetalleScreenState extends State<ClaseDetalleScreen> {
                             : Colors.grey.shade50,
                         child: Row(
                           children: [
-                            // Avatar
                             CircleAvatar(
                               radius: 16,
                               backgroundColor: color.withValues(alpha: 0.15),
@@ -376,7 +372,6 @@ class _ClaseDetalleScreenState extends State<ClaseDetalleScreen> {
                               ),
                             ),
                             const SizedBox(width: 10),
-                            // Nombre
                             Expanded(
                               flex: 3,
                               child: Text(
@@ -385,7 +380,6 @@ class _ClaseDetalleScreenState extends State<ClaseDetalleScreen> {
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                            // Nota del parcial
                             SizedBox(
                               width: 60,
                               child: Center(
@@ -408,7 +402,6 @@ class _ClaseDetalleScreenState extends State<ClaseDetalleScreen> {
                                 ),
                               ),
                             ),
-                            // Promedio
                             SizedBox(
                               width: 60,
                               child: Center(
@@ -422,7 +415,6 @@ class _ClaseDetalleScreenState extends State<ClaseDetalleScreen> {
                                 ),
                               ),
                             ),
-                            // Botón editar
                             SizedBox(
                               width: 40,
                               child: IconButton(

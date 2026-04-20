@@ -59,7 +59,7 @@ class _ResenaMaestroScreenState extends State<ResenaMaestroScreen> {
           'comentario': _comentarioController.text.trim(),
         },
       );
-      
+
       if (mounted) {
         _comentarioController.clear();
         setState(() => _miCalificacion = 0);
@@ -96,8 +96,7 @@ class _ResenaMaestroScreenState extends State<ResenaMaestroScreen> {
     final especialidad = datos['especialidad'] ?? '';
     final promedio = (datos['promedio_opinion'] ?? datos['rating'] ?? 0.0).toDouble();
     final total = datos['total_opiniones'] ?? 0;
-    
-    // Lista de opiniones (anónimas)
+
     final opiniones = (datos['opiniones'] as List?) ?? [];
 
     return Scaffold(
@@ -111,7 +110,6 @@ class _ResenaMaestroScreenState extends State<ResenaMaestroScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Cabecera del profesor
             Card(
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               elevation: 4,
@@ -122,8 +120,8 @@ class _ResenaMaestroScreenState extends State<ResenaMaestroScreen> {
                     CircleAvatar(
                       radius: 35,
                       backgroundColor: AppTheme.accentPurple.withValues(alpha: 0.15),
-                      backgroundImage: (profilePic != null && profilePic.isNotEmpty) 
-                          ? NetworkImage(profilePic) 
+                      backgroundImage: (profilePic != null && profilePic.isNotEmpty)
+                          ? NetworkImage(profilePic)
                           : null,
                       child: (profilePic == null || profilePic.isEmpty)
                           ? Text(
@@ -156,10 +154,9 @@ class _ResenaMaestroScreenState extends State<ResenaMaestroScreen> {
                 ),
               ),
             ),
-            
+
             const SizedBox(height: 24),
-            
-            // Sección de dejar reseña
+
             const Align(
               alignment: Alignment.centerLeft,
               child: Text('Deja tu opinión anónima', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
@@ -205,7 +202,7 @@ class _ResenaMaestroScreenState extends State<ResenaMaestroScreen> {
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                         ),
-                        child: _isSubmitting 
+                        child: _isSubmitting
                           ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
                           : const Text('Enviar Reseña', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
                       ),
@@ -214,16 +211,15 @@ class _ResenaMaestroScreenState extends State<ResenaMaestroScreen> {
                 ),
               ),
             ),
-            
+
             const SizedBox(height: 24),
 
-            // Histórico de reseñas anónimas
             const Align(
               alignment: Alignment.centerLeft,
               child: Text('Lo que dicen los alumnos', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
             ),
             const SizedBox(height: 12),
-            opiniones.isNotEmpty 
+            opiniones.isNotEmpty
             ? ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),

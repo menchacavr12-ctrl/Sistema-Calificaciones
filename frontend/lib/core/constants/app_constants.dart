@@ -1,10 +1,9 @@
 class AppConstants {
-  // URL base del backend - se auto-detecta según la plataforma
+  // conexion al server
   static String get baseUrl {
     return "https://sistema-calificaciones-z8oy.onrender.com";
   }
 
-  // URL para WebSockets
   static String get wsBaseUrl {
     if (baseUrl.startsWith("https")) {
       return baseUrl.replaceFirst("https", "wss");
@@ -31,15 +30,12 @@ class AppConstants {
   // Alumno Chat Endpoint
   static const String alumnoChatEndpoint = '/api/ayuda/chat';
 
-  // Storage keys
   static const String tokenKey = 'auth_token';
   static const String userKey = 'user_data';
 
-  // App info
   static const String appName = 'Sistema de Calificaciones';
   static const String appNameFull = 'EmilianitoProGamer';
 
-  // Roles
   static const String roleAlumno = 'alumno';
   static const String roleMaestro = 'maestro';
   static const String roleAdmin = 'admin';

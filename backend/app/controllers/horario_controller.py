@@ -17,11 +17,9 @@ class HorarioGroupCreate(HorarioBlockCreate):
 
 async def get_my_horario(user_id: str):
     db = get_db()
-    
-    # We load blocks for this specific user
+
     blocks = await db["horarios"].find({"usuario_id": user_id}).to_list(1000)
-    
-    # Group by dia
+
     horario_dict = {
         'Lunes': [],
         'Martes': [],
@@ -29,13 +27,12 @@ async def get_my_horario(user_id: str):
         'Jueves': [],
         'Viernes': []
     }
-    
+
     for block in blocks:
         raw_dia = block.get("dia", "Lunes")
-        # Normalización básica para evitar problemas con acentos y mayúsculas
         dia = raw_dia.capitalize().strip()
         if dia == "Miercoles": dia = "Miércoles"
-        
+
         if dia in horario_dict:
             horario_dict[dia].append({
                 "id": str(block["_id"]),
@@ -45,8 +42,7 @@ async def get_my_horario(user_id: str):
                 "aula": block.get("aula"),
                 "color": block.get("color")
             })
-            
-    # sort each array by hour roughly (or leave it as added)
+
     return horario_dict
 
 async def get_user_horario(target_id: str):

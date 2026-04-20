@@ -65,7 +65,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         children: [
           const AppHeader(showBack: true),
 
-          // Imagen de estudiantes
           Container(
             height: 120,
             width: double.infinity,

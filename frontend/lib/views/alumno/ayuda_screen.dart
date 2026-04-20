@@ -7,7 +7,6 @@ import '../../core/services/api_service.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/constants/app_constants.dart';
 
-
 class AyudaScreen extends StatefulWidget {
   const AyudaScreen({super.key});
 
@@ -32,10 +31,10 @@ class _AyudaScreenState extends State<AyudaScreen> {
     final authController = Provider.of<AuthController>(context, listen: false);
     final userId = authController.user?.id;
     if (userId == null) return;
-    
+
     final wsUrl = Uri.parse('${AppConstants.wsBaseUrl}/api/ayuda/ws/alumno/$userId');
     _channel = WebSocketChannel.connect(wsUrl);
-    
+
     _channel!.stream.listen((message) {
       if (!mounted) return;
       try {
@@ -80,9 +79,9 @@ class _AyudaScreenState extends State<AyudaScreen> {
     final text = _msgController.text.trim();
     if (text.isEmpty) return;
     FocusScope.of(context).unfocus();
-    
+
     _msgController.clear();
-    
+
     if (_channel != null) {
       _channel!.sink.add(jsonEncode({'texto': text}));
     } else {
@@ -162,8 +161,7 @@ class _AyudaScreenState extends State<AyudaScreen> {
                             },
                           ),
           ),
-          
-          // Escribir Mensaje
+
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(

@@ -103,7 +103,7 @@ class _HistorialScreenState extends State<HistorialScreen> {
       backgroundColor: AppTheme.backgroundLight,
       body: Column(
         children: [
-          // ── Header ──────────────────────────────────────────────
+
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -139,7 +139,6 @@ class _HistorialScreenState extends State<HistorialScreen> {
             ),
           ),
 
-          // ── Promedio General ──────────────────────────────────
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(20),
@@ -172,7 +171,6 @@ class _HistorialScreenState extends State<HistorialScreen> {
             ),
           ),
 
-          // ── Buscador ──────────────────────────────────────────
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
             child: TextField(
@@ -199,7 +197,6 @@ class _HistorialScreenState extends State<HistorialScreen> {
             ),
           ),
 
-          // ── Tabla de Calificaciones ───────────────────────────
           Expanded(
             child: _isLoading
                 ? const Center(child: CircularProgressIndicator())
@@ -241,7 +238,7 @@ class _HistorialScreenState extends State<HistorialScreen> {
                                     final p1 = getCal(1);
                                     final p2 = getCal(2);
                                     final p3 = getCal(3);
-                                    
+
                                     final califsL = m['calificaciones'] as List<dynamic>? ?? [];
                                     final filter = califsL.where((c) => c['valor'] != null).map((e) => e['valor'] as num).toList();
                                     final avg = filter.isNotEmpty ? filter.reduce((a, b) => a + b) / filter.length : 0.0;

@@ -3,13 +3,11 @@ from typing import Optional
 from datetime import datetime
 from enum import Enum
 
-
 class NotificacionTipo(str, Enum):
     MENSAJE = "mensaje"
     CALIFICACION = "calificacion"
     SISTEMA = "sistema"
     AYUDA = "ayuda"
-
 
 class Notificacion(BaseModel):
     id: Optional[str] = None
@@ -21,7 +19,6 @@ class Notificacion(BaseModel):
     leido: bool = False
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
-
 class MensajeAyuda(BaseModel):
     """Mensajes del centro de ayuda (alumno -> maestro/admin)"""
     id: Optional[str] = None
@@ -32,12 +29,10 @@ class MensajeAyuda(BaseModel):
     respondido: bool = False
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
-
 class MensajeAyudaCreate(BaseModel):
     destinatario_id: str
     contenido: str
     es_predeterminado: bool = False
-
 
 class OpinionMaestro(BaseModel):
     """Opinión/rating de un alumno sobre un maestro"""

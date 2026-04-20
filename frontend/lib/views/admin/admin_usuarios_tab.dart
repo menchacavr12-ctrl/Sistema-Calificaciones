@@ -56,7 +56,7 @@ class _AdminUsuariosTabState extends State<AdminUsuariosTab> {
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text(esBaja ? 'Dar de baja' : 'Reactivar'),
-        content: Text(esBaja 
+        content: Text(esBaja
           ? '¿Seguro que quieres dar de baja a $username? Ya no podrá loguearse ni aparecerá en listas.'
           : '¿Seguro que quieres reactivar a $username?'),
         actions: [
@@ -151,21 +151,17 @@ class _AdminUsuariosTabState extends State<AdminUsuariosTab> {
     final miUser = context.watch<AuthController>().user;
     final esSuperAdmin = miUser?.role == 'super_admin';
 
-    // Si el usuario ya no existe (logout en curso), no mostramos errores, simplemente esperamos la navegación
     if (miUser == null) return const Center(child: CircularProgressIndicator());
 
     if (_isLoading) return const Center(child: CircularProgressIndicator());
     if (_error != null) return Center(child: Text('Error: $_error'));
 
-    // --- FILTRADO ---
     List<dynamic> filtrados = _usuarios;
-    
-    // Filtro por Rol
+
     if (_filtroRol != 'Todos') {
       filtrados = filtrados.where((u) => u['role'] == _filtroRol.toLowerCase()).toList();
     }
-    
-    // Filtro por Búsqueda
+
     if (_searchQuery.isNotEmpty) {
       final query = _searchQuery.toLowerCase();
       filtrados = filtrados.where((u) {
@@ -177,7 +173,6 @@ class _AdminUsuariosTabState extends State<AdminUsuariosTab> {
 
     return Column(
       children: [
-        // BUSCADOR
         Padding(
           padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
           child: TextField(
@@ -217,7 +212,7 @@ class _AdminUsuariosTabState extends State<AdminUsuariosTab> {
         ),
 
         Expanded(
-          child: filtrados.isEmpty 
+          child: filtrados.isEmpty
             ? const Center(child: Text('No se encontraron usuarios.', style: TextStyle(color: AppTheme.textGray)))
             : ListView.builder(
                 itemCount: filtrados.length,

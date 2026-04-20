@@ -73,7 +73,6 @@ class _MaestroHomeScreenState extends State<MaestroHomeScreen> {
       backgroundColor: AppTheme.backgroundLight,
       body: Column(
         children: [
-          // Header
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -143,8 +142,8 @@ class _MaestroHomeScreenState extends State<MaestroHomeScreen> {
                       child: CircleAvatar(
                         radius: 18,
                         backgroundColor: Colors.white.withValues(alpha: 0.2),
-                        backgroundImage: (user?.profilePicture != null && user!.profilePicture!.isNotEmpty) 
-                            ? NetworkImage(user.profilePicture!) 
+                        backgroundImage: (user?.profilePicture != null && user!.profilePicture!.isNotEmpty)
+                            ? NetworkImage(user.profilePicture!)
                             : null,
                         child: (user?.profilePicture == null || user!.profilePicture!.isEmpty)
                             ? const Icon(Icons.person, color: Colors.white, size: 20)
@@ -157,13 +156,11 @@ class _MaestroHomeScreenState extends State<MaestroHomeScreen> {
             ),
           ),
 
-          // Contenido principal según la pestaña
           Expanded(
             child: IndexedStack(
               index: selectedTab,
               children: [
                 _buildClasesTab(user),
-                // Aquí se podrían añadir más pestañas permanentes si fuera necesario
                 const Center(child: Text("Otras opciones disponibles en el menú lateral")),
               ],
             ),
@@ -189,7 +186,6 @@ class _MaestroHomeScreenState extends State<MaestroHomeScreen> {
   Widget _buildClasesTab(dynamic user) {
     return Column(
       children: [
-        // Saludo Maestro
         Padding(
           padding: const EdgeInsets.only(top: 10, bottom: 4),
           child: RichText(
@@ -213,7 +209,6 @@ class _MaestroHomeScreenState extends State<MaestroHomeScreen> {
           ),
         ),
 
-        // Título y Buscador
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Row(
@@ -265,7 +260,7 @@ class _MaestroHomeScreenState extends State<MaestroHomeScreen> {
         ),
 
         Expanded(
-          child: _isLoading 
+          child: _isLoading
               ? const Center(child: CircularProgressIndicator())
               : _filteredClases.isEmpty
                   ? Center(
@@ -280,7 +275,7 @@ class _MaestroHomeScreenState extends State<MaestroHomeScreen> {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            _searchQuery.isEmpty 
+                            _searchQuery.isEmpty
                               ? 'Presiona el botón + abajo para crear tu primera clase.'
                               : 'Intenta con otro nombre o grupo.',
                             textAlign: TextAlign.center,
@@ -294,7 +289,7 @@ class _MaestroHomeScreenState extends State<MaestroHomeScreen> {
             itemCount: _filteredClases.length,
             itemBuilder: (context, index) {
               final clase = _filteredClases[index];
-              
+
               Color color = AppTheme.accentPurple;
               final colorVal = clase['color'];
               if (colorVal is int) {

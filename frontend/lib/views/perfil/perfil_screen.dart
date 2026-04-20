@@ -91,7 +91,7 @@ class _PerfilScreenState extends State<PerfilScreen> {
       setState(() => _isUploading = true);
       final bytes = await pickedFile.readAsBytes();
       final scaffoldMsg = ScaffoldMessenger.of(context);
-      
+
       try {
         final res = await ApiService.uploadFileAuth('/api/usuarios/me/foto', bytes.toList(), pickedFile.name);
         if (res['profile_picture'] != null) {
@@ -136,7 +136,6 @@ class _PerfilScreenState extends State<PerfilScreen> {
                 child: Column(
                   children: [
                     const SizedBox(height: 20),
-                    // Foto de Perfil Circular
                     Stack(
                       alignment: Alignment.center,
                       children: [
@@ -167,7 +166,7 @@ class _PerfilScreenState extends State<PerfilScreen> {
                       ],
                     ),
                     const SizedBox(height: 30),
-                    
+
                     TextFormField(
                       controller: _nameController,
                       decoration: const InputDecoration(
@@ -178,8 +177,7 @@ class _PerfilScreenState extends State<PerfilScreen> {
                       validator: (v) => v!.trim().isEmpty ? 'Requerido' : null,
                     ),
                     const SizedBox(height: 20),
-                    
-                    // Info de solo lectura
+
                     TextFormField(
                       initialValue: _user?['email'] ?? '',
                       enabled: false,
@@ -199,7 +197,7 @@ class _PerfilScreenState extends State<PerfilScreen> {
                         prefixIcon: Icon(Icons.badge),
                       ),
                     ),
-                    
+
                     const SizedBox(height: 40),
                     SizedBox(
                       width: double.infinity,

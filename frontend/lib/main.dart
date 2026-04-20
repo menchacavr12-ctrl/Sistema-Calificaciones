@@ -31,7 +31,6 @@ class CalificacionesApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       onGenerateRoute: AppRouter.generateRoute,
-      // Usamos un Consumer para que la app reaccione al estado de autenticación
       home: Consumer<AuthController>(
         builder: (context, auth, _) {
           return const AuthWrapper();
@@ -41,7 +40,6 @@ class CalificacionesApp extends StatelessWidget {
   }
 }
 
-/// Decide qué pantalla mostrar basándose en el estado de AuthController
 class AuthWrapper extends StatefulWidget {
   const AuthWrapper({super.key});
 
@@ -70,17 +68,14 @@ class _AuthWrapperState extends State<AuthWrapper> {
   Widget build(BuildContext context) {
     final auth = context.watch<AuthController>();
 
-    // 1. Cargando sesión inicial
     if (_isChecking) {
       return const _SplashScreen();
     }
 
-    // 2. No autenticado -> Login
     if (!auth.isAuthenticated || auth.user == null) {
       return const LoginScreen();
     }
 
-    // 3. Autenticado -> Home según rol
     final role = auth.user!.role;
     switch (role) {
       case 'alumno':

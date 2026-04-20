@@ -40,8 +40,6 @@ class _ClasesScreenState extends State<ClasesScreen> {
     }
   }
 
-
-
   Color _colorNota(double nota) {
     if (nota >= 90) return AppTheme.accentGreen;
     if (nota >= 80) return const Color(0xFF3B82F6);
@@ -55,7 +53,7 @@ class _ClasesScreenState extends State<ClasesScreen> {
       backgroundColor: AppTheme.backgroundLight,
       body: Column(
         children: [
-          // ── Header ──────────────────────────────────────────
+
           Container(
             decoration: const BoxDecoration(gradient: headerGradient),
             child: SafeArea(
@@ -85,7 +83,6 @@ class _ClasesScreenState extends State<ClasesScreen> {
             ),
           ),
 
-          // ── Resumen ─────────────────────────────────────────
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(16),
@@ -111,7 +108,6 @@ class _ClasesScreenState extends State<ClasesScreen> {
           ),
           const Divider(height: 1),
 
-          // ── Lista de clases ─────────────────────────────────
           Expanded(
             child: _isLoading
                 ? const Center(child: CircularProgressIndicator())
@@ -184,7 +180,7 @@ class _ClasesScreenState extends State<ClasesScreen> {
         color = Color(int.parse(hex, radix: 16));
       } catch (_) {}
     }
-    
+
     final promedio = (clase['mi_promedio'] ?? 0).toDouble();
 
     return Card(
@@ -194,7 +190,6 @@ class _ClasesScreenState extends State<ClasesScreen> {
       clipBehavior: Clip.antiAlias,
       child: Column(
         children: [
-          // Banner de color
           Container(
             height: 8,
             color: color,
@@ -232,7 +227,6 @@ class _ClasesScreenState extends State<ClasesScreen> {
                         ],
                       ),
                     ),
-                    // Promedio
                     Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 12, vertical: 6),
@@ -252,7 +246,6 @@ class _ClasesScreenState extends State<ClasesScreen> {
                   ],
                 ),
                 const SizedBox(height: 12),
-                // Info line
                 Row(
                   children: [
                     Icon(Icons.people, size: 14, color: AppTheme.textGray),

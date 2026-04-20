@@ -50,7 +50,7 @@ class _MisResenasScreenState extends State<MisResenasScreen> {
         backgroundColor: AppTheme.primaryDark,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: _isLoading 
+      body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _error != null
               ? Center(child: Text('Error: $_error', style: const TextStyle(color: AppTheme.accentRed)))
@@ -58,7 +58,6 @@ class _MisResenasScreenState extends State<MisResenasScreen> {
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
-                      // Cabecera Resumen
                       Card(
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                         elevation: 4,
@@ -83,16 +82,16 @@ class _MisResenasScreenState extends State<MisResenasScreen> {
                           ),
                         ),
                       ),
-                      
+
                       const SizedBox(height: 24),
-                      
+
                       const Align(
                         alignment: Alignment.centerLeft,
                         child: Text('Reseñas de tus Alumnos', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                       ),
                       const SizedBox(height: 12),
-                      
-                      _resenas.isEmpty 
+
+                      _resenas.isEmpty
                       ? const Center(
                           child: Padding(
                             padding: EdgeInsets.all(24.0),

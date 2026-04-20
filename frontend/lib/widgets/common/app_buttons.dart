@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../core/theme/app_theme.dart';
 
-// ── Botón verde (Iniciar Sesión) ─────────────────────────────────────────────
 class GreenButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
@@ -36,7 +35,6 @@ class GreenButton extends StatelessWidget {
   }
 }
 
-// ── Botón morado (Registrarse / Confirmar) ───────────────────────────────────
 class PurpleButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
@@ -86,7 +84,6 @@ class PurpleButton extends StatelessWidget {
   }
 }
 
-// ── Botón de Google ────────────────────────────────────────────────────────
 class GoogleButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final bool isLoading;
@@ -123,7 +120,6 @@ class GoogleButton extends StatelessWidget {
   }
 }
 
-// ── Campo de texto estilizado ────────────────────────────────────────────────
 class AppTextField extends StatelessWidget {
   final String label;
   final TextEditingController controller;

@@ -40,7 +40,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
       backgroundColor: AppTheme.backgroundLight,
       body: Column(
         children: [
-          // Header Moderno
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -141,7 +140,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
               ),
             ),
           ),
-          // Content
           Expanded(
             child: IndexedStack(
               index: currentIndex,

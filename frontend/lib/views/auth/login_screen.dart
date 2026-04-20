@@ -68,10 +68,9 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Column(
         children: [
-          // ── Header con degradado ────────────────────────────────────
+
           const AppHeader(),
 
-          // ── Imagen de estudiantes ───────────────────────────────────
           Container(
             height: 140,
             width: double.infinity,
@@ -85,7 +84,6 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                // Imagen de fondo (estudiantes)
                 Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
@@ -96,7 +94,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-                // Íconos decorativos
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -109,7 +106,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
 
-          // ── Formulario ───────────────────────────────────────────────
           Expanded(
             child: SingleChildScrollView(
               child: Container(
@@ -142,7 +138,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 24),
 
-                      // Campo usuario/correo
                       AppTextField(
                         label: 'Usuario o correo electronico',
                         controller: _userController,
@@ -152,7 +147,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 16),
 
-                      // Campo contraseña
                       AppTextField(
                         label: 'Contraseña',
                         controller: _passController,
@@ -169,7 +163,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 24),
 
-                      // Botón Iniciar Sesion (verde)
                       GreenButton(
                         text: 'Ingresar',
                         onPressed: _handleLogin,
@@ -182,7 +175,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
 
-          // ── Footer: Registrarse ─────────────────────────────────────
           Container(
             padding: const EdgeInsets.all(20),
             color: AppTheme.backgroundLight,

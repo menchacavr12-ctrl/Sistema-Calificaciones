@@ -16,8 +16,7 @@ class _HorarioScreenState extends State<HorarioScreen> {
 
   bool _isLoading = true;
   String? _error;
-  
-  // Datos reales traídos del backend
+
   Map<String, List<Map<String, dynamic>>> _horario = {
     'Lunes': [],
     'Martes': [],
@@ -39,7 +38,6 @@ class _HorarioScreenState extends State<HorarioScreen> {
       final res = await ApiService.get(AppConstants.horarioEndpoint);
       setState(() {
         _isLoading = false;
-        // Mapear los datos de la API a nuestro tipo. Color viene en hex.
         if (res is Map) {
           res.forEach((dia, clasesList) {
             final classes = (clasesList as List).map((c) {
@@ -77,7 +75,7 @@ class _HorarioScreenState extends State<HorarioScreen> {
       backgroundColor: AppTheme.backgroundLight,
       body: Column(
         children: [
-          // ── Header ──────────────────────────────────────────
+
           Container(
             decoration: const BoxDecoration(gradient: headerGradient),
             child: SafeArea(
@@ -110,7 +108,6 @@ class _HorarioScreenState extends State<HorarioScreen> {
             ),
           ),
 
-          // ── Selector de días ────────────────────────────────
           Container(
             padding: const EdgeInsets.symmetric(vertical: 10),
             color: Colors.white,
@@ -166,7 +163,6 @@ class _HorarioScreenState extends State<HorarioScreen> {
 
           const Divider(height: 1),
 
-          // ── Título del día ──────────────────────────────────
           Padding(
             padding: const EdgeInsets.all(16),
             child: Row(
@@ -188,13 +184,12 @@ class _HorarioScreenState extends State<HorarioScreen> {
             ),
           ),
 
-          // ── Lista de clases del día ─────────────────────────
           Expanded(
-            child: _isLoading 
+            child: _isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : _error != null
                    ? Center(child: Text('Error: $_error', style: const TextStyle(color: AppTheme.accentRed)))
-                   : clasesDelDia.isEmpty 
+                   : clasesDelDia.isEmpty
                       ? Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -217,7 +212,6 @@ class _HorarioScreenState extends State<HorarioScreen> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Línea de tiempo
                       Column(
                         children: [
                           Container(
@@ -237,7 +231,6 @@ class _HorarioScreenState extends State<HorarioScreen> {
                         ],
                       ),
                       const SizedBox(width: 12),
-                      // Contenido de la clase
                       Expanded(
                         child: Container(
                           padding: const EdgeInsets.all(12),

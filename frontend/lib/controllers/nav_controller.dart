@@ -24,7 +24,6 @@ class NavController extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Reset all indexes (useful on logout)
   void reset() {
     _adminIndex = 0;
     _maestroIndex = 0;

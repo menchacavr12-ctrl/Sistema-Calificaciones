@@ -4,12 +4,10 @@ from app.controllers import auth_controller
 
 router = APIRouter(prefix="/api/auth", tags=["Autenticación"])
 
-
-@router.post("/register", summary="Registrar nuevo usuario")
+@router.post("/register")
 async def register(user_data: UserCreate):
     return await auth_controller.register_user(user_data)
 
-
-@router.post("/login", summary="Iniciar sesión")
+@router.post("/login")
 async def login(data: UserLogin):
     return await auth_controller.login_user(data)

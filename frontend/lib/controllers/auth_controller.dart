@@ -23,7 +23,6 @@ class AuthController extends ChangeNotifier {
     notifyListeners();
   }
 
-  // ── Verificar sesión guardada al abrir la app ─────────────────────────
   Future<bool> checkSession() async {
     try {
       final savedUser = await ApiService.getSavedUser();
@@ -38,7 +37,6 @@ class AuthController extends ChangeNotifier {
     return false;
   }
 
-  // ── REGISTRO ──────────────────────────────────────────────────────────
   Future<Map<String, dynamic>?> register({
     required String username,
     required String email,
@@ -66,7 +64,6 @@ class AuthController extends ChangeNotifier {
     }
   }
 
-  // ── LOGIN ─────────────────────────────────────────────────────────────
   Future<Map<String, dynamic>?> login({
     required String emailOrUsername,
     required String password,
@@ -81,7 +78,6 @@ class AuthController extends ChangeNotifier {
       await _saveSession(result);
       return result;
     } on ApiException catch (e) {
-      // Si el status es 403, significa que no está verificado (flujo antiguo) o bloqueado
       _setError(e.message);
       return null;
     } catch (e) {
@@ -92,14 +88,12 @@ class AuthController extends ChangeNotifier {
     }
   }
 
-  // ── CERRAR SESIÓN ─────────────────────────────────────────────────────
   Future<void> logout() async {
     await ApiService.clearSession();
     _user = null;
     notifyListeners();
   }
 
-  // ── Guardar sesión ────────────────────────────────────────────────────
   Future<void> _saveSession(Map<String, dynamic> result) async {
     final token = result['access_token'];
     final userData = result['user'];

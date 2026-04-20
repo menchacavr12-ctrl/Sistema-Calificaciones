@@ -36,17 +36,15 @@ class AppDrawer extends StatelessWidget {
                   },
                 ),
                 const Divider(height: 1),
-                
-                // Opciones por rol
-                if (role == 'admin' || role == 'super_admin') 
+
+                if (role == 'admin' || role == 'super_admin')
                   ..._buildAdminItems(context, nav),
-                if (role == 'alumno') 
+                if (role == 'alumno')
                   ..._buildAlumnoItems(context),
-                if (role == 'maestro') 
-                  ..._buildMaestroItems(context, nav), 
-                
+                if (role == 'maestro')
+                  ..._buildMaestroItems(context, nav),
+
                 const Divider(height: 1),
-                // Se eliminó la opción de Cerrar Sesión de aquí ya que se usa la del encabezado
               ],
             ),
           ),
@@ -189,17 +187,17 @@ class AppDrawer extends StatelessWidget {
   }
 
   Widget _buildMenuItem(BuildContext context, {
-    required IconData icon, 
-    required String title, 
-    required VoidCallback onTap, 
+    required IconData icon,
+    required String title,
+    required VoidCallback onTap,
     Color? color
   }) {
     return ListTile(
       leading: Icon(icon, color: color ?? AppTheme.primaryDark, size: 22),
       title: Text(
-        title, 
+        title,
         style: TextStyle(
-          color: color ?? AppTheme.textDark, 
+          color: color ?? AppTheme.textDark,
           fontWeight: FontWeight.w500,
           fontSize: 14
         )

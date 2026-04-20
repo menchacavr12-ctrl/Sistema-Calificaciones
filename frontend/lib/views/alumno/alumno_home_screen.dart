@@ -88,7 +88,6 @@ class _AlumnoHomeScreenState extends State<AlumnoHomeScreen> {
       backgroundColor: AppTheme.backgroundLight,
       body: Column(
         children: [
-          // Header con info del alumno
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -110,7 +109,6 @@ class _AlumnoHomeScreenState extends State<AlumnoHomeScreen> {
                       onPressed: () => _scaffoldKey.currentState?.openDrawer(),
                     ),
                     const SizedBox(width: 12),
-                    // Buscador
                     Expanded(
                       child: Container(
                         height: 40,
@@ -127,7 +125,7 @@ class _AlumnoHomeScreenState extends State<AlumnoHomeScreen> {
                             prefixIcon: const Icon(Icons.search, color: AppTheme.accentPurple, size: 18),
                             border: InputBorder.none,
                             contentPadding: const EdgeInsets.symmetric(vertical: 10),
-                            suffixIcon: _searchQuery.isNotEmpty 
+                            suffixIcon: _searchQuery.isNotEmpty
                               ? IconButton(
                                   icon: const Icon(Icons.clear, size: 16),
                                   onPressed: () {
@@ -141,7 +139,6 @@ class _AlumnoHomeScreenState extends State<AlumnoHomeScreen> {
                       ),
                     ),
                     const SizedBox(width: 10),
-                    // Avatar y saludo
                     PopupMenuButton<String>(
                       onSelected: (value) {
                         if (value == 'perfil') {
@@ -217,7 +214,6 @@ class _AlumnoHomeScreenState extends State<AlumnoHomeScreen> {
             ),
           ),
 
-          // Título
           const Padding(
             padding: EdgeInsets.only(top: 20, bottom: 10),
             child: Text(
@@ -230,7 +226,6 @@ class _AlumnoHomeScreenState extends State<AlumnoHomeScreen> {
             ),
           ),
 
-          // Grid de opciones
           Expanded(
             child: _filteredItems.isEmpty
                 ? Center(
@@ -267,7 +262,6 @@ class _AlumnoHomeScreenState extends State<AlumnoHomeScreen> {
                   ),
           ),
 
-          // Barra inferior
           Container(
             height: 56,
             decoration: BoxDecoration(

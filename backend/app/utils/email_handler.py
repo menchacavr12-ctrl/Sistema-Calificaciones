@@ -6,21 +6,19 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from app.config.settings import MAIL_USERNAME, MAIL_PASSWORD, MAIL_FROM, MAIL_PORT, MAIL_SERVER, APP_NAME
 
-
 def generate_verification_code(length: int = 5) -> str:
     """Genera un código numérico de N dígitos"""
     return ''.join(random.choices(string.digits, k=length))
-
 
 def _send_email_sync(to_email: str, code: str, username: str) -> bool:
     """Envío síncrono del email (se ejecuta en un thread separado)"""
     try:
         if not MAIL_USERNAME or not MAIL_PASSWORD or MAIL_USERNAME == "tucorreo@gmail.com":
-            print(f"⚠️ Email no configurado. Código para {to_email}: {code}")
+            print(f" Email no configurado. Código para {to_email}: {code}")
             return False
 
         msg = MIMEMultipart("alternative")
-        msg["Subject"] = f"🎓 Código de Verificación - {APP_NAME}"
+        msg["Subject"] = f" Código de Verificación - {APP_NAME}"
         msg["From"] = MAIL_FROM
         msg["To"] = to_email
 
@@ -46,7 +44,7 @@ def _send_email_sync(to_email: str, code: str, username: str) -> bool:
         <body>
             <div class="container">
                 <div class="header">
-                    <h1>🎓 {APP_NAME}</h1>
+                    <h1> {APP_NAME}</h1>
                 </div>
                 <div class="body">
                     <p class="greeting">¡Hola, <strong>{username}</strong>!</p>
@@ -55,7 +53,7 @@ def _send_email_sync(to_email: str, code: str, username: str) -> bool:
                         {''.join([f'<span class="digit">{d}</span>' for d in code])}
                     </div>
                     <div class="timer">⏱ Tiempo de expiración: 3:00 minutos</div>
-                    <p class="warning">⚠️ Si no solicitaste este código, ignora este correo.</p>
+                    <p class="warning"> Si no solicitaste este código, ignora este correo.</p>
                 </div>
                 <div class="footer">
                     <p>© 2025 {APP_NAME}. Todos los derechos reservados.</p>
@@ -73,13 +71,12 @@ def _send_email_sync(to_email: str, code: str, username: str) -> bool:
             server.login(MAIL_USERNAME, MAIL_PASSWORD)
             server.sendmail(MAIL_FROM, to_email, msg.as_string())
 
-        print(f"✅ Email enviado a {to_email}")
+        print(f" Email enviado a {to_email}")
         return True
     except Exception as e:
-        print(f"❌ Error enviando email a {to_email}: {e}")
-        print(f"📌 Código de verificación para {to_email}: {code}")
+        print(f" Error enviando email a {to_email}: {e}")
+        print(f" Código de verificación para {to_email}: {code}")
         return False
-
 
 async def send_verification_email(to_email: str, code: str, username: str) -> bool:
     """

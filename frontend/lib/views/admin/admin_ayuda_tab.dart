@@ -61,7 +61,6 @@ class _AdminAyudaTabState extends State<AdminAyudaTab> {
 
     return Column(
       children: [
-        // BUSCADOR
         Padding(
           padding: const EdgeInsets.all(16),
           child: TextField(
@@ -79,7 +78,7 @@ class _AdminAyudaTabState extends State<AdminAyudaTab> {
             onChanged: (val) => setState(() => _searchQuery = val),
           ),
         ),
-        
+
         Expanded(
           child: filtered.isEmpty
             ? const Center(child: Text('No se encontraron chats.', style: TextStyle(color: AppTheme.textGray)))
@@ -90,7 +89,7 @@ class _AdminAyudaTabState extends State<AdminAyudaTab> {
                   final alumno = filtered[index];
                   final num unreads = alumno['unread_count'] ?? 0;
                   final hasUnread = unreads > 0;
-                  
+
                   return Card(
                     elevation: 2,
                     margin: const EdgeInsets.only(bottom: 12),
@@ -122,7 +121,7 @@ class _AdminAyudaTabState extends State<AdminAyudaTab> {
                         ],
                       ),
                       title: Text(
-                        alumno['usuario_nombre'] ?? 'Desconocido', 
+                        alumno['usuario_nombre'] ?? 'Desconocido',
                         style: TextStyle(fontWeight: hasUnread ? FontWeight.bold : FontWeight.w500)
                       ),
                       subtitle: Text(

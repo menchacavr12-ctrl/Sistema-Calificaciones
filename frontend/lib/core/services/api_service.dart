@@ -20,7 +20,6 @@ class ApiService {
     return headers;
   }
 
-  // ── POST sin autenticación ─────────────────────────────────────────────
   static Future<Map<String, dynamic>> post(
     String endpoint,
     Map<String, dynamic> body,
@@ -36,7 +35,6 @@ class ApiService {
     return _handleResponse(response);
   }
 
-  // ── POST con autenticación ─────────────────────────────────────────────
   static Future<Map<String, dynamic>> postAuth(
     String endpoint,
     Map<String, dynamic> body,
@@ -52,7 +50,6 @@ class ApiService {
     return _handleResponse(response);
   }
 
-  // ── GET con autenticación ─────────────────────────────────────────────
   static Future<dynamic> get(String endpoint) async {
     final url = Uri.parse('${AppConstants.baseUrl}$endpoint');
     final response = await http.get(
@@ -64,7 +61,6 @@ class ApiService {
     return _handleResponse(response);
   }
 
-  // ── PUT con autenticación ─────────────────────────────────────────────
   static Future<Map<String, dynamic>> put(
     String endpoint,
     Map<String, dynamic> body,
@@ -80,7 +76,6 @@ class ApiService {
     return _handleResponse(response);
   }
 
-  // ── DELETE con autenticación ──────────────────────────────────────────
   static Future<Map<String, dynamic>> deleteAuth(String endpoint) async {
     final url = Uri.parse('${AppConstants.baseUrl}$endpoint');
     final response = await http.delete(
@@ -92,7 +87,6 @@ class ApiService {
     return _handleResponse(response);
   }
 
-  // ── UPLOAD FILE con autenticación ─────────────────────────────────────
   static Future<Map<String, dynamic>> uploadFileAuth(
       String endpoint, List<int> bytes, String filename) async {
     final url = Uri.parse('${AppConstants.baseUrl}$endpoint');
@@ -103,8 +97,8 @@ class ApiService {
     }
     request.files.add(
       http.MultipartFile.fromBytes(
-        'file', 
-        bytes, 
+        'file',
+        bytes,
         filename: filename,
         contentType: MediaType.parse(_getMimeType(filename)),
       ),
@@ -117,29 +111,24 @@ class ApiService {
     return _handleResponse(response);
   }
 
-  // ── Guardar token ─────────────────────────────────────────────────────
   static Future<void> saveToken(String token) async {
     await _storage.write(key: AppConstants.tokenKey, value: token);
   }
 
-  // ── Guardar usuario ───────────────────────────────────────────────────
   static Future<void> saveUser(Map<String, dynamic> user) async {
     await _storage.write(key: AppConstants.userKey, value: jsonEncode(user));
   }
 
-  // ── Obtener usuario guardado ───────────────────────────────────────────
   static Future<Map<String, dynamic>?> getSavedUser() async {
     final data = await _storage.read(key: AppConstants.userKey);
     if (data != null) return jsonDecode(data);
     return null;
   }
 
-  // ── Cerrar sesión ─────────────────────────────────────────────────────
   static Future<void> clearSession() async {
     await _storage.deleteAll();
   }
 
-  // ── Manejo de respuestas ─────────────────────────────────────────────
   static dynamic _handleResponse(http.Response response) {
     final decoded = jsonDecode(response.body);
     if (response.statusCode >= 200 && response.statusCode < 300) {

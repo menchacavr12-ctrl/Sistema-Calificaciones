@@ -6,55 +6,41 @@ from pydantic import BaseModel
 
 router = APIRouter(prefix="/api/clases", tags=["Clases"])
 
-
-# ─── ALUMNO ───────────────────────────────────────────────────────────────────
-@router.get("/mis-clases", summary="Ver mis clases (Alumno)")
+@router.get("/mis-clases")
 async def mis_clases_alumno(current_user: dict = Depends(get_current_user)):
     return await clase_controller.get_clases_alumno(current_user["id"])
 
-
-@router.post("/unirse", summary="Unirse a una clase con código (Alumno)")
+@router.post("/unirse")
 async def unirse_clase(data: JoinClaseRequest, current_user: dict = Depends(get_current_user)):
     return await clase_controller.join_clase(data, current_user["id"])
 
-
-@router.get("/historial", summary="Ver historial académico completo (Alumno)")
+@router.get("/historial")
 async def historial_academico(current_user: dict = Depends(get_current_user)):
     return await clase_controller.get_historial_academico(current_user["id"])
 
-
-
-
-# ─── MAESTRO ─────────────────────────────────────────────────────────────────
-@router.post("/", summary="Crear nueva clase (Maestro)", status_code=201)
+@router.post("/", status_code=201)
 async def create_clase(data: ClaseCreate, current_user: dict = Depends(get_current_user)):
     if current_user.get("role") != "maestro":
         raise HTTPException(status_code=403, detail="Solo los maestros pueden crear clases")
     return await clase_controller.create_clase(data, current_user)
 
-
-@router.delete("/{clase_id}", summary="Eliminar clase (Maestro)")
+@router.delete("/{clase_id}")
 async def delete_clase(clase_id: str, current_user: dict = Depends(get_current_user)):
     if current_user.get("role") != "maestro":
         raise HTTPException(status_code=403, detail="Solo los maestros pueden eliminar clases")
     return await clase_controller.delete_clase(clase_id, current_user["id"])
 
-
-# ─── DETALLES Y ALUMNOS ───────────────────────────────────────────────────────
-@router.get("/maestro/mis-clases", summary="Ver mis clases como Maestro")
+@router.get("/maestro/mis-clases")
 async def mis_clases_maestro(current_user: dict = Depends(get_current_user)):
     return await clase_controller.get_clases_maestro(current_user["id"])
 
-
-@router.put("/{clase_id}", summary="Editar clase (Maestro)")
+@router.put("/{clase_id}")
 async def editar_clase(clase_id: str, data: ClaseUpdate, current_user: dict = Depends(get_current_user)):
     return await clase_controller.update_clase(clase_id, data, current_user["id"])
 
-
-@router.get("/{clase_id}/alumnos", summary="Ver alumnos inscritos (Maestro)")
+@router.get("/{clase_id}/alumnos")
 async def alumnos_en_clase(clase_id: str, current_user: dict = Depends(get_current_user)):
     return await clase_controller.get_alumnos_en_clase(clase_id, current_user["id"])
-
 
 @router.put("/{clase_id}/alumnos/{alumno_id}/calificacion/{parcial}",
             summary="Actualizar calificación de un alumno (Maestro)")

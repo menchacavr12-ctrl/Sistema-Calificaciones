@@ -108,7 +108,6 @@ class _AdminResenasTabState extends State<AdminResenasTab> {
 
       return Column(
         children: [
-          // BUSCADOR
           Padding(
             padding: const EdgeInsets.all(16),
             child: TextField(
@@ -123,7 +122,7 @@ class _AdminResenasTabState extends State<AdminResenasTab> {
                   borderSide: BorderSide.none,
                 ),
                 contentPadding: const EdgeInsets.symmetric(vertical: 0),
-                suffixIcon: _searchQuery.isNotEmpty 
+                suffixIcon: _searchQuery.isNotEmpty
                   ? IconButton(
                       icon: const Icon(Icons.clear, size: 16),
                       onPressed: () {
@@ -179,9 +178,9 @@ class _AdminResenasTabState extends State<AdminResenasTab> {
         ),
         const Divider(height: 1),
         Expanded(
-          child: _isLoadingResenas 
+          child: _isLoadingResenas
             ? const Center(child: CircularProgressIndicator())
-            : _resenas.isEmpty 
+            : _resenas.isEmpty
               ? const Center(child: Text('No hay reseñas para este maestro.'))
               : ListView.builder(
                   padding: const EdgeInsets.all(16),
@@ -192,7 +191,7 @@ class _AdminResenasTabState extends State<AdminResenasTab> {
                     final calif = op['calificacion'] ?? 0;
                     final autor = op['alumno_nombre'] ?? 'Anónimo';
                     final comentario = op['comentario'] ?? '';
-                    
+
                     return Card(
                       color: Colors.white,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

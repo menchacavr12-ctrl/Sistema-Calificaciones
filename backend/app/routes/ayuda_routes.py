@@ -10,10 +10,8 @@ from datetime import datetime
 
 router = APIRouter(prefix="/api/ayuda", tags=["Ayuda/Chat"])
 
-# ── Gestor de conexiones WebSocket ────────────────────────────────────────────
 class ChatConnectionManager:
     def __init__(self):
-        # { alumno_id: [ws1, ws2, ...] }  (puede haber alumno + admin en la misma sala)
         self.active_connections: Dict[str, List[WebSocket]] = {}
 
     async def connect(self, alumno_id: str, websocket: WebSocket):
@@ -41,22 +39,17 @@ class ChatConnectionManager:
             for ws in dead:
                 self.active_connections[alumno_id].remove(ws)
 
-
 manager = ChatConnectionManager()
 
-
-# ── REST: Historial (para cargar al abrir el chat) ────────────────────────────
-@router.post("/chat", summary="Enviar mensaje al soporte (Alumno) – REST fallback")
+@router.post("/chat")
 async def send_help_message(data: ChatMessageCreate, current_user: dict = Depends(get_current_user)):
     return await ayuda_controller.send_message_from_alumno(data, current_user["id"])
 
-@router.get("/chat", summary="Obtener historial de chat (Alumno)")
+@router.get("/chat")
 async def get_my_chat(current_user: dict = Depends(get_current_user)):
     await ayuda_controller.mark_messages_as_read(current_user["id"], read_by="alumno")
     return await ayuda_controller.get_chat_for_alumno(current_user["id"])
 
-
-# ── WebSocket: Alumno ─────────────────────────────────────────────────────────
 @router.websocket("/ws/alumno/{alumno_id}")
 async def ws_alumno(websocket: WebSocket, alumno_id: str):
     """
@@ -89,8 +82,6 @@ async def ws_alumno(websocket: WebSocket, alumno_id: str):
     except WebSocketDisconnect:
         manager.disconnect(alumno_id, websocket)
 
-
-# ── WebSocket: Admin ──────────────────────────────────────────────────────────
 @router.websocket("/ws/admin/{alumno_id}")
 async def ws_admin(websocket: WebSocket, alumno_id: str):
     """
@@ -99,7 +90,6 @@ async def ws_admin(websocket: WebSocket, alumno_id: str):
     """
     await manager.connect(alumno_id, websocket)
     db = get_db()
-    # Obtener admin_id desde query param opcional
     admin_id = websocket.query_params.get("admin_id", "admin")
     admin_rol = websocket.query_params.get("rol", "admin")
     try:

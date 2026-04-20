@@ -59,7 +59,7 @@ class _UnirseClaseScreenState extends State<UnirseClaseScreen> {
       backgroundColor: AppTheme.backgroundLight,
       body: Column(
         children: [
-          // ── Header ──────────────────────────────────────────
+
           Container(
             decoration: const BoxDecoration(gradient: headerGradient),
             child: SafeArea(
@@ -89,7 +89,6 @@ class _UnirseClaseScreenState extends State<UnirseClaseScreen> {
             ),
           ),
 
-          // ── Contenido ───────────────────────────────────────
           Expanded(
             child: Center(
               child: SingleChildScrollView(
@@ -107,7 +106,6 @@ class _UnirseClaseScreenState extends State<UnirseClaseScreen> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // Ícono grande
         Container(
           padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
@@ -138,7 +136,6 @@ class _UnirseClaseScreenState extends State<UnirseClaseScreen> {
         ),
         const SizedBox(height: 30),
 
-        // Campo de código
         TextField(
           controller: _codeController,
           textAlign: TextAlign.center,

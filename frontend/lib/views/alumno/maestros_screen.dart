@@ -103,7 +103,7 @@ class _MaestrosScreenState extends State<MaestrosScreen> {
       backgroundColor: AppTheme.backgroundLight,
       body: Column(
         children: [
-          // ── Header ──────────────────────────────────────────
+
           Container(
             decoration: const BoxDecoration(gradient: headerGradient),
             child: SafeArea(
@@ -133,7 +133,6 @@ class _MaestrosScreenState extends State<MaestrosScreen> {
             ),
           ),
 
-          // ── Buscador ────────────────────────────────────────
           Padding(
             padding: const EdgeInsets.all(12),
             child: TextField(
@@ -153,7 +152,6 @@ class _MaestrosScreenState extends State<MaestrosScreen> {
             ),
           ),
 
-          // ── Filtros de especialidad ─────────────────────────
           SizedBox(
             height: 36,
             child: ListView.builder(
@@ -181,7 +179,6 @@ class _MaestrosScreenState extends State<MaestrosScreen> {
           ),
           const SizedBox(height: 8),
 
-          // ── Lista de maestros ───────────────────────────────
           Expanded(
             child: _isLoading
                 ? const Center(child: CircularProgressIndicator())
@@ -228,7 +225,6 @@ class _MaestrosScreenState extends State<MaestrosScreen> {
           padding: const EdgeInsets.all(14),
           child: Row(
             children: [
-              // Avatar
               CircleAvatar(
                 radius: 28,
                 backgroundColor: AppTheme.accentPurple.withValues(alpha: 0.15),
@@ -247,7 +243,6 @@ class _MaestrosScreenState extends State<MaestrosScreen> {
                     : null,
               ),
               const SizedBox(width: 12),
-              // Info
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -276,7 +271,6 @@ class _MaestrosScreenState extends State<MaestrosScreen> {
                 ],
               ),
             ),
-            // Rating
             Column(
               children: [
                 Row(

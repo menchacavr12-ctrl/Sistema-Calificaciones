@@ -6,7 +6,6 @@ from bson import ObjectId
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 
-
 async def get_current_user(token: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -35,7 +34,6 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     user["id"] = str(user["_id"])
     return user
 
-
 def require_role(*roles: str):
     """Dependency factory para requerir roles específicos"""
     async def role_checker(current_user: dict = Depends(get_current_user)):
@@ -47,8 +45,6 @@ def require_role(*roles: str):
         return current_user
     return role_checker
 
-
-# Shortcuts de roles
 require_alumno = require_role("alumno")
 require_maestro = require_role("maestro", "admin", "super_admin")
 require_admin = require_role("admin", "super_admin")

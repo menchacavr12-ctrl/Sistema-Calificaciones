@@ -12,8 +12,7 @@ class AdminHorariosTab extends StatefulWidget {
 
 class _AdminHorariosTabState extends State<AdminHorariosTab> with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  
-  // Data Individual
+
   bool _isLoadingUsuarios = true;
   String? _error;
   List<dynamic> _usuarios = [];
@@ -27,7 +26,6 @@ class _AdminHorariosTabState extends State<AdminHorariosTab> with SingleTickerPr
     'Lunes': [], 'Martes': [], 'Miércoles': [], 'Jueves': [], 'Viernes': []
   };
 
-  // Data Grupal
   List<dynamic> _alumnosGrupo = [];
   Set<String> _selectedAlumnosIds = {};
   bool _isSendingGrupo = false;
@@ -57,7 +55,6 @@ class _AdminHorariosTabState extends State<AdminHorariosTab> with SingleTickerPr
     }
   }
 
-  // --- LOGICA INDIVIDUAL ---
   Future<void> _verHorario(Map<String, dynamic> user) async {
     setState(() { _selectedUser = user; _isLoadingHorario = true; });
     try {
@@ -84,7 +81,7 @@ class _AdminHorariosTabState extends State<AdminHorariosTab> with SingleTickerPr
   void _agregarBloque() {
     if (_selectedUser == null) return;
     final userId = _selectedUser!['id'] ?? _selectedUser!['_id'];
-    
+
     String selectedDia = 'Lunes';
     final horaCtrl = TextEditingController(text: '08:00 - 09:00');
     final materiaCtrl = TextEditingController();
@@ -147,7 +144,6 @@ class _AdminHorariosTabState extends State<AdminHorariosTab> with SingleTickerPr
     }
   }
 
-  // --- LOGICA GRUPAL ---
   void _mostrarFormularioGrupo() {
     if (_selectedAlumnosIds.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Selecciona al menos un alumno')));
@@ -213,7 +209,6 @@ class _AdminHorariosTabState extends State<AdminHorariosTab> with SingleTickerPr
     );
   }
 
-  // --- RENDERS ---
   @override
   Widget build(BuildContext context) {
     if (_isLoadingUsuarios) return const Center(child: CircularProgressIndicator());
@@ -316,7 +311,7 @@ class _AdminHorariosTabState extends State<AdminHorariosTab> with SingleTickerPr
         ),
         const Divider(height: 1),
         Expanded(
-          child: _isLoadingHorario 
+          child: _isLoadingHorario
             ? const Center(child: CircularProgressIndicator())
             : ListView(
                 padding: const EdgeInsets.all(16),
@@ -409,7 +404,7 @@ class _AdminHorariosTabState extends State<AdminHorariosTab> with SingleTickerPr
                   final alumno = filtered[index];
                   final alumnoId = alumno['id'] ?? alumno['_id'];
                   final bool isSelected = _selectedAlumnosIds.contains(alumnoId);
-                  
+
                   return CheckboxListTile(
                     title: Text(alumno['username'] ?? ''),
                     subtitle: Text(alumno['email'] ?? ''),
