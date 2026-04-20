@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:provider/provider.dart';
+import '../../controllers/auth_controller.dart';
 import '../../core/services/api_service.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/constants/app_constants.dart';
+
 
 class AyudaScreen extends StatefulWidget {
   const AyudaScreen({super.key});
@@ -15,11 +20,40 @@ class _AyudaScreenState extends State<AyudaScreen> {
   List<dynamic> _mensajes = [];
   bool _isLoading = true;
   String? _error;
+  WebSocketChannel? _channel;
 
   @override
   void initState() {
     super.initState();
-    _loadChat();
+    _loadChat().then((_) => _conectarWebSocket());
+  }
+
+  void _conectarWebSocket() {
+    final authController = Provider.of<AuthController>(context, listen: false);
+    final userId = authController.user?.id;
+    if (userId == null) return;
+    
+    final wsUrl = Uri.parse('${AppConstants.wsBaseUrl}/api/ayuda/ws/alumno/$userId');
+    _channel = WebSocketChannel.connect(wsUrl);
+    
+    _channel!.stream.listen((message) {
+      if (!mounted) return;
+      try {
+        final decoded = jsonDecode(message);
+        setState(() {
+          _mensajes.add(decoded);
+        });
+      } catch (e) {
+        debugPrint('Error parseando WS: $e');
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _channel?.sink.close();
+    _msgController.dispose();
+    super.dispose();
   }
 
   Future<void> _loadChat() async {
@@ -48,14 +82,19 @@ class _AyudaScreenState extends State<AyudaScreen> {
     FocusScope.of(context).unfocus();
     
     _msgController.clear();
-    try {
-      await ApiService.postAuth(AppConstants.alumnoChatEndpoint, {
-        'texto': text
-      });
-      await _loadChat();
-    } catch (e) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
+    
+    if (_channel != null) {
+      _channel!.sink.add(jsonEncode({'texto': text}));
+    } else {
+      try {
+        await ApiService.postAuth(AppConstants.alumnoChatEndpoint, {
+          'texto': text
+        });
+        await _loadChat();
+      } catch (e) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
+      }
     }
   }
 

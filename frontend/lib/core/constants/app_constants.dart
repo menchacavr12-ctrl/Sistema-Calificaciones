@@ -4,6 +4,15 @@ class AppConstants {
     return "https://sistema-calificaciones-z8oy.onrender.com";
   }
 
+  // URL para WebSockets
+  static String get wsBaseUrl {
+    if (baseUrl.startsWith("https")) {
+      return baseUrl.replaceFirst("https", "wss");
+    } else {
+      return baseUrl.replaceFirst("http", "ws");
+    }
+  }
+
   // Endpoints
   static const String registerEndpoint = '/api/auth/register';
   static const String loginEndpoint = '/api/auth/login';
@@ -12,13 +21,13 @@ class AppConstants {
   static const String clasesEndpoint = '/api/clases';
   static const String historialEndpoint = '/api/clases/historial';
   static const String horarioEndpoint = '/api/horarios/me';
-  
+
   // Admin Endpoints
   static const String adminUsuariosEndpoint = '/api/admin/usuarios';
   static const String adminChatListaEndpoint = '/api/admin/chat/alumnos';
   static const String adminChatManoEndpoint = '/api/admin/chat/'; // + id
   static const String adminHorarioGrupoEndpoint = '/api/horarios/grupo';
-  
+
   // Alumno Chat Endpoint
   static const String alumnoChatEndpoint = '/api/ayuda/chat';
 

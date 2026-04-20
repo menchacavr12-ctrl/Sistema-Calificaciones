@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:provider/provider.dart';
+import '../../controllers/auth_controller.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/services/api_service.dart';
 import '../../core/constants/app_constants.dart';
+
 
 class AdminChatScreen extends StatefulWidget {
   final String alumnoId;
@@ -18,11 +23,41 @@ class _AdminChatScreenState extends State<AdminChatScreen> {
   String? _error;
   List<dynamic> _mensajes = [];
   final TextEditingController _msgController = TextEditingController();
+  WebSocketChannel? _channel;
 
   @override
   void initState() {
     super.initState();
-    _loadHistorial();
+    _loadHistorial().then((_) => _conectarWebSocket());
+  }
+
+  void _conectarWebSocket() {
+    final authController = Provider.of<AuthController>(context, listen: false);
+    final adminId = authController.user?.id;
+    final adminRole = authController.user?.role;
+    if (adminId == null) return;
+    
+    final wsUrl = Uri.parse('${AppConstants.wsBaseUrl}/api/ayuda/ws/admin/${widget.alumnoId}?admin_id=$adminId&rol=$adminRole');
+    _channel = WebSocketChannel.connect(wsUrl);
+    
+    _channel!.stream.listen((message) {
+      if (!mounted) return;
+      try {
+        final decoded = jsonDecode(message);
+        setState(() {
+          _mensajes.add(decoded);
+        });
+      } catch (e) {
+        debugPrint('Error parseando WS: $e');
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _channel?.sink.close();
+    _msgController.dispose();
+    super.dispose();
   }
 
   Future<void> _loadHistorial() async {
@@ -50,15 +85,19 @@ class _AdminChatScreenState extends State<AdminChatScreen> {
     FocusScope.of(context).unfocus();
     
     _msgController.clear();
-    try {
-      await ApiService.postAuth('${AppConstants.adminChatManoEndpoint}${widget.alumnoId}', {
-        'texto': text
-      });
-      // Recargar despues de enviar
-      await _loadHistorial();
-    } catch (e) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
+    
+    if (_channel != null) {
+      _channel!.sink.add(jsonEncode({'texto': text}));
+    } else {
+      try {
+        await ApiService.postAuth('${AppConstants.adminChatManoEndpoint}${widget.alumnoId}', {
+          'texto': text
+        });
+        await _loadHistorial();
+      } catch (e) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
+      }
     }
   }
 
