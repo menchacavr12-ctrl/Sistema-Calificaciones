@@ -8,9 +8,10 @@ start powershell -NoExit -Command "cd frontend; flutter run -d chrome"
 
 echo.
 echo ==============================================
-echo [✅] ¡Sistema en proceso de inicio!
+echo  Sistema en proceso de inicio
 echo Las terminales se abrirán por separado.
 echo Una vez que veas "INFO: Application startup complete" 
 echo y "Flutter run on Chrome", ¡ya puedes usarlo!
 echo ==============================================
+echo que ves pedazo de idiota por que estas espiando este codigo
 pause
